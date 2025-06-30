@@ -1,6 +1,7 @@
 <?php
 require_once('./snipets/header.php');
 require_once('./includes/connexion.php');
+require_once 'conn.php';
 ?>
 <body>
     <nav class="navbar">
@@ -48,8 +49,14 @@ require_once('./includes/connexion.php');
             <h2 class="section-title">Parcours scolaire</h2>
             <img src="./img/image1.png" alt="Parcours scolaire" style="float: right; max-width: 40%; margin-left: 20px; margin-bottom: 20px; margin-top: 0;" />
             <ul>
-                <li>BAC PRO ARED</li>
-                <li>BTS CIEL</li>
+                <?php
+    $sql = "SELECT * FROM parcours";
+    $stmt = $pdo->query($sql);
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<li>" . htmlspecialchars($row['nom']) . "</li>";
+    }
+    ?>
             </ul>
         </div>
     </section>
@@ -57,10 +64,16 @@ require_once('./includes/connexion.php');
     
     <section id="experience" class="section">
         <div class="container">
-            <h2 class="section-title">Expérience professionnelle</h2>
+            <h2 class="section-title">Expériences</h2>
             <ul>
-                <li>Stage Technicien SAV</li>
-                <li>Alternance Informatique</li>
+                <?php
+    $sql = "SELECT * FROM experiences";
+    $stmt = $pdo->query($sql);
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<li>" . htmlspecialchars($row['nom']) . "</li>";
+    }
+    ?>
             </ul>
         </div>
     </section>
@@ -69,31 +82,27 @@ require_once('./includes/connexion.php');
     <section id="skills" class="section bg-light">
         <div class="container">
             <h2 class="section-title">Compétences</h2>
-            <ul class="skills-list">
-                <li>HTML / CSS</li>
-                <li>JavaScript</li>
-                <li>Wireshark</li>
-                <li>Soudure</li>
-                <li>Cybersecurité</li>
-                <li>Audit réseau</li>
-                <li>Configuration de routeurs / switchs</li>
-                <li>Téléphonie PABX</li>
-                <li>gestion AD</li>
-                <li>Management MDM</li>
-            </ul>
+            <a href="competences.php">Modifier</a>
+           <ul class="skills-list">
+    <?php
+
+    $sql = "SELECT * FROM competences";
+    $stmt = $pdo->query($sql);
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<li>" . htmlspecialchars($row['nom']) . "</li>";
+    }
+    ?>
         </div>
     </section>
 
     
-    <section class="carousel-section">
         <div class="container">
-            <h2 class="section-title">Mes Réalisations</h2>
-            <div class="carousel-container">
+            <h2 class="section-title">Mes Photos</h2>
                 <div class="realisation-grid">
                     <img src="./img/image4.avif" alt="Projet 1" class="realisation-img">
                     <img src="./img/image5.jpg" alt="Projet 2" class="realisation-img"> 
                 </div>
-            </div>
         </div>
     </section>
 
@@ -124,7 +133,5 @@ require_once('./includes/connexion.php');
             <p>&copy;</p>
         </div>
     </footer>
-
-    <script src="./js/script.js"></script>
 </body>
 </html>
